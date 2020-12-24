@@ -104,9 +104,9 @@
                         <div class="card course-card hover-effect border-0">
                             <a href="{{route('courses.details',$topCourse->slug)}}"><img class="card-img-top" style="width: 410px;height: 273px" src="{{uploadedAssets($topCourse->photo)}}" alt="Card image cap"></a>
                             <div class="card-body">
-                                <h4 class="card-title font-weight-bold mb-2"><a href="{{route('courses.details',$topCourse->slug)}}">{{\Illuminate\Support\Str::limit($topCourse->name,4,'...')}}</a></h4>
+                                <h4 class="card-title font-weight-bold mb-2"><a href="{{route('courses.details',$topCourse->slug)}}">{{$topCourse->name}}</a></h4>
                                 <p class="mb-2 card-title-sub text-uppercase font-weight-normal ls1"><a href="{{route('search.by.category',$topCourse->category->slug)}}" class="text-black-50">{{$topCourse->category->name}}</a></p>
-                                <p class="card-text text-black-50 mb-1">{!! \Illuminate\Support\Str::limit($topCourse->description,15,'...') !!}</p>
+                                <p class="card-text text-black-50 mb-1">{!! \Illuminate\Support\Str::limit($topCourse->description,40,'...') !!}</p>
                             </div>
                             <div class="card-footer py-3 d-flex justify-content-between align-items-center bg-white text-muted">
                                 @if($topCourse->price == 0)

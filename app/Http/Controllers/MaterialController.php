@@ -38,7 +38,7 @@ class MaterialController extends Controller
         ]);
         $course = Course::findOrFail($request->course_id);
         $validatedData = $request->except(['token', 'material_upload', 'material_external_host', 'material_youtube']);
-        $File_Extension=null;
+        $File_Extension='mp4';
         switch ($request->type) {
             case 'video':
                 if ($request->source == 'Youtube') {

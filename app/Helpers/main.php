@@ -86,3 +86,19 @@ if (!function_exists('getImage')){
     }
 }
 
+
+function getVideoId($path){
+     $query=parse_url($path);$id=null;
+    foreach ($query as $key => $value) {
+        if ($key == 'query') {
+            $values = explode('&', $value);
+            foreach ($values as $val) {
+                $parts = explode('=', $val);
+                if ($parts[0] == 'v') {
+                    $id = $parts[1];
+                }
+            }
+        }
+    }
+    return "https://www.youtube.com/embed/$id";
+}

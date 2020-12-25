@@ -68,14 +68,50 @@
                                     <div class="tab-content clearfix ui-tabs-panel ui-corner-bottom ui-widget-content" id="tabs-1" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="false" style="">
                                         <table class="table table-striped table-bordered">
                                             <tbody>
-                                            <tr><td>Video/Audio</td><td>Title</td><td>Downloads</td><td>Download</td></tr>
+
+                                            <!-- Button trigger modal -->
+
+
+                              <tr><td>Video/Audio</td><td>Title</td><td>Downloads</td><td>Download</td></tr>
                                             @foreach($course->materials->whereIn('type',['video','audio']) as $file)
+
                                                 <tr>
-                                                    <td>{{$file->type}}</td>
+                                                    <td>{{$file->title}}</td>
                                                     <td>{{$file->download_name}}</td>
                                                     <td>{{$file->download}}</td>
-                                                    <td><a href="{{route('download',$file->id)}}" class="btn btn-warning">Download</a></td>
+                                                    <td>
+                                                    <a href="{{route('download',$file->id)}}" class="btn btn-warning">Download</a>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-{{$file->id}}">view</button>
+                                                    </td>
+
+                                                        <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal-{{$file->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @if($file->source == 'Youtube')
+                                                            <iframe width="900" height="500" src="{{getVideoId($file->path)}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        @else
+                                                            <video controls style="width: 467px">
+                                                                <source  src="{{$file->path}}" type="video/mp4">
+                                                            </video>
+
+                                                        @endif
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                                 </tr>
+
                                             @endforeach
                                             </tbody>
                                         </table>
@@ -86,6 +122,7 @@
                                             <tbody>
                                             <tr><td>Image</td><td>Title</td><td>Downloads</td><td>Download</td></tr>
                                             @foreach($course->materials->where('type','image') as $image)
+
                                                 <tr>
                                                     @if($image->source =='Uploading')
                                                         <td><img src="{{uploadedAssets($image->path)}}" class="img-thumbnail" style="width: 50px;height: 50px" title="{{$image->download_name}}"></td>

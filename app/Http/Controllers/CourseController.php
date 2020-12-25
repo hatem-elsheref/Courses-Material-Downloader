@@ -54,7 +54,7 @@ class CourseController extends Controller
 
         $validatedData=$request->except(['_token','photo','_wysihtml5_mode']);
 
-        $validatedData['slug']=Str::slug($request->name).rand(1,1000);
+        $validatedData['slug']=Str::slug($request->name).rand(1,10);
         $validatedData['photo']='';
         $validatedData['price']=0;
 
@@ -93,7 +93,7 @@ class CourseController extends Controller
         $course=Course::findOrFail($id);
         $validatedData=$request->except(['_token','_method','photo','_wysihtml5_mode']);
         $validatedData['photo']=$course->photo;
-        $validatedData['slug']=Str::slug($request->name).rand(1,1000);
+        $validatedData['slug']=Str::slug($request->name).rand(1,10);
         $validatedData['price']=0;
         if ($request->hasFile('photo')){
             $fileName=$request->file('photo')->hashName();
